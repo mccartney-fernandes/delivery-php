@@ -1,4 +1,10 @@
 <?php require_once('Connections/sistema.php'); ?>
+<?php 
+$numero1 = $_GET['id_mesa'];
+$urlAtual = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+// echo $urlAtual;
+header("Location: cadastra.php?cod=0&nome=Taxa Entrega&preco=".$row_Recordset1['preco']."&qtd=1&mesa=".$numero1."&idGarcon=0&destino=0&urlAtual=".$urlAtual);
+?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -41,7 +47,7 @@ $Recordset1 = mysql_query($query_Recordset1, $sistema) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 //Deleta Itens da Tabela tbl_carrinho
-date_default_timezone_set('America/Sao_Paulo');
+date_default_timezone_set('America/Recife');
 $numero = $_GET['id_mesa'];
 if($_GET['retira'] == "produto"){
 	$numer = $_GET['numero'];
@@ -58,7 +64,8 @@ if(isset($_POST['ok'])){
 		$idGarcon = $_POST['nomeGarcon'];
 		
 		$altera = mysql_query("UPDATE pedido SET idGarcon = '$idGarcon', situacao = '1' WHERE id_mesa = '$numero' ") or die(mysql_error());
-		if($altera == 1){
+    
+    if($altera == 1){
 	print "<META HTTP-EQUIV=REFRESH CONTENT='0; URL=inicio2.php?btn=vendapedido&id_mesa=$numero&idGarcon=$idGarcon'>";	
 	}
 }
@@ -92,9 +99,10 @@ Atendente:
 </select>
 <?php if($sit == "0"){?>
 <input name="ok" type="submit" value="Abrir pedido" style="background-color: #F30; border:1px solid #9B0000;" />
-<?php }else{ ?>
+<?php }else{?>
 <input name="ok" type="submit" value="Alterar" style=" background-color:#090; border:1px solid #030;" />
 <?php } ?>
+
 </form>
 
 
@@ -102,6 +110,8 @@ Atendente:
 
 <div id="boxprodutos"><br/>
 <?php if($sit == "1"){
+ 
+
 include "selecionacat2.php";
 } ?>
 	<div id="comentarios2">
@@ -351,3 +361,5 @@ function NovaJanela(pagina,nome,w,h,scroll){
 <?php
 mysql_free_result($Recordset1);
 ?>
+
+

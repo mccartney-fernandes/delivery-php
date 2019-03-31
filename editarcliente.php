@@ -75,25 +75,29 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
   $emailu = $_POST['email'];
-  $nomeu = $_POST['nome'];
-  $sobreu = $_POST['sobrenome'];
-  $teleu = $_POST['telefone'];
-  $bairou = $_POST['bairro'];
-  $ruau = $_POST['rua'];
-  $nunu = $_POST['numerocasa'];
-  $detu = $_POST['detalhes'];
+  $nomeu = strtoupper($_POST['nome']);
+  $sobreu = strtoupper($_POST['sobrenome']);
+  $teleu = strtoupper($_POST['telefone']);
+  $bairou = strtoupper($_POST['bairro']);
+  $ruau = strtoupper($_POST['rua']);
+  $nunu = strtoupper($_POST['numerocasa']);
+  $detu = strtoupper($_POST['detalhes']);
+  $precou = $_POST['preco'];
   $id_mesau = $_GET['id_mesa'];
 
 
 
 
-
-  $update = "UPDATE pedido SET email = '$emailu', nome = '$nomeu', sobrenome = '$sobreu', telefone = '$teleu', bairro = '$bairou', rua = '$ruau', numerocasa= '$nunu', detalhes = '$detu' WHERE id_mesa = '$id_mesau'";
+  $update = "UPDATE pedido SET email = '$emailu', nome = '$nomeu', sobrenome = '$sobreu', telefone = '$teleu', bairro = '$bairou', rua = '$ruau', numerocasa= '$nunu', detalhes = '$detu', preco = '$precou' WHERE id_mesa = '$id_mesau'";
 
 
   mysql_select_db($database_sistema, $sistema);
 
   $Result1 = mysql_query($update, $sistema) or die(mysql_error());
+
+  if(!$Result){
+    header('Location: http://localhost/brotherlanches/inicio2.php?btn=createclientes');
+  }
 
  
 
@@ -166,7 +170,21 @@ function exibe(id) {
   </div>
 
 <br />
+<!-- <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script> -->
 
+<script type="text/javascript" src="js/jquery.mask-money.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+        $("#preco").maskMoney({decimal:",",thousands:"."});
+
+		
+
+      });
+
+</script>
 <div id="conteudo">
 
   <form action="<?php echo $editFormAction; ?>" method="post" name="form2" id="form2">
@@ -185,7 +203,7 @@ function exibe(id) {
 
         <td nowrap="nowrap" align="right">Nome:</td>
 
-        <td><input type="text" name="nome" value="<?php echo $cliente['nome'] ?>" size="32" /></td>
+        <td><input type="text" name="nome" value="<?php echo $cliente['nome'] ?>" size="32" required/></td>
 
       </tr>
 
@@ -201,7 +219,7 @@ function exibe(id) {
 
         <td nowrap="nowrap" align="right">Telefone:</td>
 
-        <td><input type="text" name="telefone" value="<?php echo $cliente['telefone'] ?>" size="32" /></td>
+        <td><input type="text" name="telefone" value="<?php echo $cliente['telefone'] ?>" size="32" required/></td>
 
       </tr>
 
@@ -209,7 +227,7 @@ function exibe(id) {
 
         <td nowrap="nowrap" align="right">Bairro:</td>
 
-        <td><input type="text" name="bairro" value="<?php echo $cliente['bairro'] ?>" size="32" /></td>
+        <td><input type="text" name="bairro" value="<?php echo $cliente['bairro'] ?>" size="32" required/></td>
 
       </tr>
 
@@ -217,7 +235,7 @@ function exibe(id) {
 
         <td nowrap="nowrap" align="right">Rua:</td>
 
-        <td><input type="text" name="rua" value="<?php echo $cliente['rua'] ?>" size="32" /></td>
+        <td><input type="text" name="rua" value="<?php echo $cliente['rua'] ?>" size="32" required/></td>
 
       </tr>
 
@@ -225,7 +243,7 @@ function exibe(id) {
 
         <td nowrap="nowrap" align="right">N:</td>
 
-        <td><input type="text" name="numerocasa" value="<?php echo $cliente['numerocasa'] ?>" size="32" /></td>
+        <td><input type="text" name="numerocasa" value="<?php echo $cliente['numerocasa'] ?>" size="32" required/></td>
 
       </tr>
 
@@ -233,7 +251,15 @@ function exibe(id) {
 
         <td nowrap="nowrap" align="right" valign="top">Cidade:</td>
 
-        <td><input type="text" name="detalhes" value="<?php echo $cliente['detalhes'] ?>" size="32" /></td>
+        <td><input type="text" name="detalhes" value="<?php echo $cliente['detalhes'] ?>" size="32" required/></td>
+
+      </tr>
+
+      <tr valign="baseline">
+
+        <td nowrap="nowrap" align="right" valign="top">Taxa de Entrega:</td>
+
+        <td><input name="preco" type="text" size="6" id="preco" value="<?php echo $cliente['preco'] ?>"></td>
 
       </tr>
 

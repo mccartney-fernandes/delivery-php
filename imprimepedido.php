@@ -1,5 +1,6 @@
-﻿<?php require_once('Connections/sistema.php'); ?>
 
+<?php require_once('Connections/sistema.php'); ?>
+<?php header("Content-type: text/html; charset=utf-8"); ?>
 <?php
 
 if (!function_exists("GetSQLValueString")) {
