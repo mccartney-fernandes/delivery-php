@@ -48,11 +48,10 @@ $cadastra = mysql_query("INSERT INTO tbl_carrinho (
 
 						)")or die (mysql_error());
 
-if($nome == 'Taxa Entrega'){
+if($nome == 'Taxa Entrega'){	
 	
-		$var = "<script>window.location.href = 'http://localhost/brotherlanches/inicio2.php?btn=vendapedido&id_mesa=".$mesa."&idGarcon=';</script>";
-		echo $var;
-	
+	print "<META HTTP-EQUIV=REFRESH CONTENT='0; URL=inicio2.php?btn=vendapedido&id_mesa=$mesa&idGarcon=0'>";	
+		
 }
 
 

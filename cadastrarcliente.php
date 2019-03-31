@@ -172,7 +172,7 @@ function exibe(id) {
 
 </script>
 
-<!-- <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script> -->
+  
 
  <script type="text/javascript" src="js/jquery.mask-money.js"></script>
 
@@ -181,7 +181,6 @@ function exibe(id) {
 $(document).ready(function() {
 
         $("#preco").maskMoney({decimal:",",thousands:"."});
-
 		
 
       });
@@ -230,7 +229,7 @@ $(document).ready(function() {
 
         <td nowrap="nowrap" align="right">CPF:</td>
 
-        <td><input type="text" name="sobrenome" value="" size="32" /></td>
+        <td><input type="text" class="cpf" name="sobrenome" value="" size="32" data-mask="000.000.000-00" /></td>
 
       </tr>
 
@@ -238,7 +237,7 @@ $(document).ready(function() {
 
         <td nowrap="nowrap" align="right">Telefone:</td>
 
-        <td><input type="text" name="telefone" value="" size="32" required/></td>
+        <td><input type="text" name="telefone" value="" size="32" data-mask="(00) 0.0000-0000" required/></td>
 
       </tr>
 
@@ -313,9 +312,7 @@ echo date("d/m/Y");
 </div>
 
 
-
-
-
+<script type="text/javascript" src="js/jquery.mask.js"></script>
 
 
 <p>&nbsp;</p>

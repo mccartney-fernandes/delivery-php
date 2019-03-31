@@ -1,10 +1,5 @@
 <?php require_once('Connections/sistema.php'); ?>
-<?php 
-$numero1 = $_GET['id_mesa'];
-$urlAtual = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-// echo $urlAtual;
-header("Location: cadastra.php?cod=0&nome=Taxa Entrega&preco=".$row_Recordset1['preco']."&qtd=1&mesa=".$numero1."&idGarcon=0&destino=0&urlAtual=".$urlAtual);
-?>
+
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -58,8 +53,10 @@ if($_GET['retira'] == "produto"){
 	print "<META HTTP-EQUIV=REFRESH CONTENT='0; URL=inicio2.php?btn=vendapedido&id_mesa=$mesaId'>";	
 	}
 }
+
 //altera atendente
 if(isset($_POST['ok'])){
+	
 		
 		$idGarcon = $_POST['nomeGarcon'];
 		
@@ -67,6 +64,10 @@ if(isset($_POST['ok'])){
     
     if($altera == 1){
 	print "<META HTTP-EQUIV=REFRESH CONTENT='0; URL=inicio2.php?btn=vendapedido&id_mesa=$numero&idGarcon=$idGarcon'>";	
+		if(isset($_GET['idGarcon'])){
+			$numero1 = $_GET['id_mesa'];
+			header("Location: cadastra.php?cod=0&nome=Taxa Entrega&preco=".$row_Recordset1['preco']."&qtd=1&mesa=".$numero1."&idGarcon=0&destino=0");
+		}
 	}
 }
 
@@ -110,7 +111,7 @@ Atendente:
 
 <div id="boxprodutos"><br/>
 <?php if($sit == "1"){
- 
+	
 
 include "selecionacat2.php";
 } ?>

@@ -11,7 +11,7 @@
 
         var pagina = document.getElementById("buscacomanda").innerHTML;
 
-        var novaJanela = window.open('','_blank',		'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');
+        var novaJanela = window.open('','_blank',   'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');
 
         novaJanela.document.write("<head>");
 
@@ -23,7 +23,7 @@
 
         novaJanela.document.write("</head>");
 
-        novaJanela.document.write("<button type='button' onclick='javascript:window.print();'>Imprimir Página</button>");
+        novaJanela.document.write("<button type='button' onclick='javascript:window.print();'>Imprimir PÃ¡gina</button>");
 
         novaJanela.document.write("<h3></h3>");
 
@@ -91,7 +91,7 @@
 <body>
 <div class="naomostra">
 
-    <form action="?btn=relatorioproduto&busca=data" method="post" enctype="multipart/form-data" id="form">
+    <form action="?btn=relatoriocliente&busca=data" method="post" enctype="multipart/form-data" id="form">
 
 
 
@@ -99,19 +99,20 @@
 
         Data Final: <input name="dataf" type="text" size="12" id="dataf" required>
 
-        <select name="produtop" required>
-            <option>--Selecione o Produto--</option>
+        <select name="clientep">
+            <option>--Selecione o Cliente--</option>
             <?php
 
-            $consulta = mysql_query("SELECT * FROM tbl_produtos GROUP BY nome");
+            $consulta = mysql_query("SELECT * FROM pedido GROUP BY nome");
             while($consulta1 = mysql_fetch_array($consulta)) {
 
                 $nom = $consulta1['nome'];
+                $id_mesa = $consulta1['id_mesa'];
 
 
                 ?>
 
-                <option><?php echo $nom; ?></option>
+                <option value="<?php echo $id_mesa ?>"><?php echo $nom; ?></option>
                 <?php
             }
 
@@ -161,10 +162,10 @@
             $datai = date('Y/m/d', strtotime($_POST['datai']));
 
             $dataf = date('Y/m/d', strtotime($_POST['dataf']));
-            $produtop = $_POST['produtop'];
+            $clientep = $_POST['clientep'];
 
 
-            $query = mysql_query("SELECT data, nome, preco, SUM(preco) AS pr, SUM(qtd) AS qtd, date_format(data, '%d/%m/%Y') AS data FROM tbl_carrinho WHERE data BETWEEN '$datai' AND '$dataf' AND nome = '$produtop' GROUP BY nome") or die(mysql_error());
+            $query = mysql_query("SELECT data, nome, preco, SUM(preco) AS pr, SUM(qtd) AS qtd, date_format(data, '%d/%m/%Y') AS data FROM tbl_carrinho WHERE data BETWEEN '$datai' AND '$dataf' AND id_mesa = '$clientep' GROUP BY nome") or die(mysql_error());
 
 
 
