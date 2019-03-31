@@ -140,7 +140,9 @@ return false;
 
 	$query = mysql_query("SELECT data, nome, preco, SUM(preco) AS pr, SUM(qtd) AS qtd, date_format(data, '%d/%m/%Y') AS data FROM tbl_carrinho WHERE data BETWEEN '$datai' AND '$dataf' GROUP BY nome") or die(mysql_error());
 
+$query2 = mysql_query("SELECT SUM(preco) AS pr, date_format(data, '%d/%m/%Y') AS data FROM tbl_carrinho WHERE data BETWEEN '$datai' AND '$dataf'") or die(mysql_error());
 
+$query3 = mysql_query("SELECT SUM(preco) AS pr, SUM(qtd) AS qtd, date_format(data, '%d/%m/%Y') AS data FROM tbl_carrinho WHERE data BETWEEN '$datai' AND '$dataf' AND nome = 'Taxa Entrega'") or die(mysql_error());
 
 		while($resultado = mysql_fetch_array($query)){
 
@@ -157,6 +159,8 @@ return false;
 			$total_produto = $qtd * $preco_unitario;
 
 			$total += $total_produto; 
+
+      if(!($nome == "Taxa Entrega")){
 
 			?>
 
@@ -178,15 +182,33 @@ return false;
 
     
 
-    <?php }  ?>
+    <?php } 
+
+    }  
+
+    ?>
+
+    <tr>
+<?php $resultado3 = mysql_fetch_array($query3); ?>
+    <td colspan="1" align="center">&nbsp;</td>
+
+    <td align="center" style="border:1px solid #f2f2f2;"><strong>Total Taxa Entrega do período</strong></td>
+
+    <td align="right" style="border:1px solid #f2f2f2;"><strong><?php echo $resultado3['qtd']; ?></strong></td>
+
+    <td colspan="1" align="center">&nbsp;</td>
+    
+    <td align="right" style="border:1px solid #f2f2f2;"><strong><?php echo number_format($resultado3['pr'], 2, ',', '.'); ?></strong></td>
+
+  </tr>
 
      <tr>
-
+<?php $resultado2 = mysql_fetch_array($query2); ?>
     <td colspan="3" align="center">&nbsp;</td>
 
     <td align="center" style="border:1px solid #f2f2f2;"><strong>Total do período</strong></td>
 
-    <td align="right" style="border:1px solid #f2f2f2;"><strong><?php echo number_format($total, 2, ',', '.'); ?></strong></td>
+    <td align="right" style="border:1px solid #f2f2f2;"><strong><?php echo number_format($resultado2['pr'], 2, ',', '.'); ?></strong></td>
 
   </tr>
 
