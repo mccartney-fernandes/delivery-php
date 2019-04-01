@@ -96,7 +96,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
   $Result1 = mysql_query($update, $sistema) or die(mysql_error());
 
   if(!$Result){
-    header('Location: http://localhost/brotherlanches/inicio2.php?btn=createclientes');
+    header('Location: inicio2.php?btn=createclientes');
   }
 
  
@@ -211,7 +211,7 @@ $(document).ready(function() {
 
         <td nowrap="nowrap" align="right">CPF:</td>
 
-        <td><input type="text" name="sobrenome" value="<?php echo $cliente['sobrenome'] ?>" size="32" /></td>
+        <td><input type="text" name="sobrenome" value="<?php echo $cliente['sobrenome'] ?>" size="32" data-mask="000.000.000-00"/></td>
 
       </tr>
 
@@ -219,7 +219,7 @@ $(document).ready(function() {
 
         <td nowrap="nowrap" align="right">Telefone:</td>
 
-        <td><input type="text" name="telefone" value="<?php echo $cliente['telefone'] ?>" size="32" required/></td>
+        <td><input type="text" name="telefone" value="<?php echo $cliente['telefone'] ?>" size="32" data-mask="(00) 00000-0000" required/></td>
 
       </tr>
 
@@ -279,6 +279,8 @@ $(document).ready(function() {
   </form>
 
   <p>&nbsp;</p>
+  <script type="text/javascript" src="js/jquery.mask.js"></script>
+
 
 </div>
 

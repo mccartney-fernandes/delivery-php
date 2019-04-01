@@ -1,4 +1,25 @@
+<style>
+  @import url('fonts/BalooChettan-Regular.ttf');
+  /*@import url('fonts/AbrilFatface-Regular.ttf');*/
+  /*@import url('fonts/Teko.Bold.ttf');*/
+  @import url('fonts/Teko.Regular.ttf');
 
+  .font-baloo{
+    font-family: 'Baloo Chettan', cursive;
+    font-size: 32px;
+  }
+
+  .font-bold{
+    /*font-family: 'Abril Fatface', cursive;*/
+    font-family: 'Teko', sans-serif;
+    font-size: 12px;
+  }
+  .font-bold-end{
+    /*font-family: 'Abril Fatface', cursive;*/
+    font-family: 'Teko', sans-serif;
+    font-size: 14px;
+  }
+</style>
 <?php require_once('Connections/sistema.php'); ?>
 <?php header("Content-type: text/html; charset=utf-8"); ?>
 <?php
@@ -95,7 +116,7 @@ $sql = mysql_query("SELECT * FROM config");
 
 $ver = mysql_fetch_array($sql);
 
-date_default_timezone_set('America/Sao_Paulo');
+date_default_timezone_set('America/Recife');
 
 ?>
 
@@ -157,7 +178,7 @@ hr{ color:#f2f2f2;}
 
 <table width="340" border="0" align="center" class="inputs">
 
-  <tr>
+  
 
   <?php 
 
@@ -173,13 +194,11 @@ hr{ color:#f2f2f2;}
 
   ?>
 
-  <td align="center"><strong><span class="titulo">Nome: <?php echo $row_Recordset1['nome']; ?> <?php echo $row_Recordset1['sobrenome']; ?></span></strong></td>
-
-  </tr>
+  
 
   <tr>
 
-    <td align="center"><?php echo $ver['empresa']?> <br/>   Data: <?php echo date("d/m/y") ?> Hora: <?php echo date("H:m:s") ?></td>
+    <td align="center"><span class="font-baloo"><?php echo $ver['empresa']?></span> <br/>  <span class="font-bold"> Data: <?php echo date("d/m/y") ?> Hora: <?php echo date("H:m:s") ?></span></td>
 
   </tr>
 
@@ -194,16 +213,15 @@ hr{ color:#f2f2f2;}
 </table>
 
 <table width="340" align="center">
-
     <tr>
 
-	  <td><strong>Produtos</strong></td>
+	  <td class="font-bold"><strong>Produtos</strong></td>
 
-      <td width="18%" align="center"><strong>QDT</strong></td>
+      <td width="18%" align="center" class="font-bold"><strong>QDT</strong></td>
 
-	  <td align="center"><strong>VL UN</strong></td>
+	  <td align="center" class="font-bold"><strong>V UN</strong></td>
 
-	  <td align="center"><strong>VALOR</strong></td>
+	  <td align="center" class="font-bold"><strong>VALOR</strong></td>
 
   </tr>
 
@@ -249,13 +267,13 @@ hr{ color:#f2f2f2;}
 
 	<tr class="fontcomanda">
 
-    <td width="53%" align="left" class="btn"><?php echo $nome; ?> </td>
+    <td width="53%" align="left" class="btn font-bold"><?php echo $nome; ?> </td>
 
-    <td align="center" ><?php echo $qtd; ?> </td>
+    <td align="center" class="font-bold"><?php echo $qtd; ?> </td>
 
-    <td width="15%" align="right"><?php echo $unitario ?></td>
+    <td width="15%" class="font-bold" align="right"><?php echo $unitario ?></td>
 
-    <td width="14%" align="right"><?php echo number_format($preco, 2, '.', '.'); ?></td>
+    <td width="14%" class="font-bold" align="right"><?php echo number_format($preco, 2, '.', '.'); ?></td>
 
      <?php 
 
@@ -275,19 +293,19 @@ hr{ color:#f2f2f2;}
 
 	<tr class="fontcomanda">
 
-	  <td colspan="3" align="right" class="btn"><strong>Total de Itens:</strong></td>
+	  <td colspan="3" align="right" class="btn font-bold"><strong>Total de Itens:</strong></td>
 
-	  <td align="right"><strong><?php echo $itens; ?></strong></td>
+	  <td align="right" class="font-bold"><strong><?php echo $itens; ?></strong></td>
 
   </tr>
 
 	<tr class="fontcomanda">
 
-	  <td colspan="3" align="right" class="btn"><strong>Valor total:</strong></td>
+	  <td colspan="3" align="right" class="btn font-bold"><strong>Valor total:</strong></td>
 
 	  <?php $totals = number_format($total, 2, ',', '.'); ?>
 
-	  <td align="right"><strong><?php echo $totals ?></strong></td>
+	  <td align="right" class="font-bold"><strong><?php echo $totals ?></strong></td>
 
   </tr>
 
@@ -295,25 +313,28 @@ hr{ color:#f2f2f2;}
 
 	<tr class="fontcomanda">
 
-	  <td colspan="3" align="right" class="btn"><strong>Total:</strong></td>
+	  <td colspan="3" align="right" class="btn font-bold"><strong>Total:</strong></td>
 
       
 
-	  <td align="right"><?php echo number_format($somatotal, 2, ',', '.') ?></td>
+	  <td align="right" class="font-bold"><?php echo number_format($somatotal, 2, ',', '.') ?></td>
 
   </tr>
-
-  
-
   <tr class="fontcomanda">
 
-	  <td colspan="4" align="left" class="btn"><strong>Telefone: </strong><?php echo  $row_Recordset1['telefone']; ?><br /><strong>Bairro: </strong><?php echo $row_Recordset1['bairro']; ?><br />
+	  <td colspan="4" align="left" class="btn font-bold-end" style="border: 2px solid black;">
+      <strong>Nome:</strong> <?php echo $row_Recordset1['nome']; ?><hr>
+      <strong>Telefone: </strong><?php echo  $row_Recordset1['telefone']; ?><hr>
 
- <strong>Rua: </strong><?php echo $row_Recordset1['rua']; ?><br />
+      <strong>Bairro: </strong><?php echo $row_Recordset1['bairro']; ?><hr>
 
- <strong>Numero: </strong><?php echo $row_Recordset1['numerocasa']; ?><br />
+     <strong>Rua: </strong><?php echo $row_Recordset1['rua']; ?><hr>
 
- <strong>Cidade:</strong> <?php echo $row_Recordset1['detalhes']; ?></td>
+     <strong>Numero: </strong><?php echo $row_Recordset1['numerocasa']; ?><hr>
+
+     <strong>Cidade:</strong> <?php echo $row_Recordset1['detalhes']; ?>
+</td>
+ 
 
   </tr>  
 

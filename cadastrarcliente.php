@@ -237,7 +237,7 @@ $(document).ready(function() {
 
         <td nowrap="nowrap" align="right">Telefone:</td>
 
-        <td><input type="text" name="telefone" value="" size="32" data-mask="(00) 0.0000-0000" required/></td>
+        <td><input type="text" name="telefone" value="" size="32" data-mask="(00) 00000-0000" required/></td>
 
       </tr>
 

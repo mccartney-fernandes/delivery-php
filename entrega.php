@@ -1,5 +1,28 @@
+<style type="text/css">
+	
+	.box-pedido{
+		height: 140px !important; 
+		background: #d4cfcf !important;    
+		box-shadow: 3px 1px 11px 2px #444444 !important;
+	}
 
-<h1> &nbsp;&nbsp;&nbsp;Contas a Receber</h1>
+	.box-pedido:hover{   
+		background: #8a6969 !important;  
+	}
+
+	.box-pedido-link{
+		color: #a23030 !important;
+		background: #5a4c4c00 !important;
+	}
+
+	.box-pedido-link:hover{
+		color:#fff !important;
+		background: #5a4c4c00 !important;
+		
+	}
+
+</style>
+<h1> &nbsp;&nbsp;&nbsp;Pedidos</h1>
 <?php 
 	if($_GET['fecha'] == "fechar"){
 	$id_mesa = $_GET['id_mesa'];
@@ -18,6 +41,11 @@
 		matchContains: true,
 		selectFirst: false
 	});
+	$("#busca2").autocomplete("ajax/busca2.php", {
+		width: 300,
+		matchContains: true,
+		selectFirst: false
+	});
   });
 </script>
 
@@ -25,8 +53,10 @@
 <div id="mesas">
 <div class="div"><center>
     <form method="post" action=""><br />
-
-      <input size="32" type="text" class="busca" id="busca" name="buscar" value="Buscar no Sistema..." onfocus="if (this.value == 'Buscar no Sistema...') this.value = '';" onblur="if (this.value == '') this.value = 'Buscar no Sistema...';" />
+    	<label for="busca">Busca por nome</label>&nbsp;&nbsp;
+      <input size="32" type="text" class="busca" id="busca" name="buscar" placeholder="Buscar por nome no Sistema..." onfocus="if (this.placeholder == 'Buscar no Sistema...') this.placeholder = '';" onblur="if (this.placeholder == '') this.placeholder = 'Buscar por nome no Sistema...';" /><br><br>
+      <label for="busca2">Busca por telefone</label>&nbsp;&nbsp;
+      <input size="32" type="text" class="busca" id="busca2" name="buscar" placeholder="Buscar por telefone no Sistema..." onfocus="if (this.placeholder == 'Buscar no Sistema...') this.placeholder = '';" onblur="if (this.placeholder == '') this.placeholder = 'Buscar por telefone no Sistema...';" />
       <a href="inicio.php?btn=cadastroclientes">Cadastrar Cliente </a>
     </form></center>
   </div>
@@ -47,14 +77,19 @@
 		
 			
 			if($situacao == 0){
-				$img = "<img src='imagens/restaurant_p.png' width='60' height='47' border='0'>";				
+				$img = "<img src='imagens/cliente-pedido.png' width='60' height='47' border='0'>";				
 			}else{
-			$img = "<img src='imagens/restaurant_pverde.png' width='60' height='47' border='0'>";
+			$img = "<img src='imagens/pedido-espera.png' width='60' height='47' border='0'>";
 			}
 	?>
 
-	<li><a href="?btn=vendapedido&id_mesa=<?php echo $id_mesa ?>&idGarcon=<?php echo $idGarcon ?>"><?php echo $img; echo "<br/>";  echo ''.$numero;  echo "<br/>"; if($situacao == 1){echo "Garçom: ".$nomeGarcon; }else{echo "Abrir";} ?></a>
+	<li class="box-pedido">
+		<a class="box-pedido-link" href="?btn=vendapedido&id_mesa=<?php echo $id_mesa ?>&idGarcon=<?php echo $idGarcon ?>">
+			<?php echo $img; echo "<br/>";  echo ''.$numero;  echo "<br/>"; if($situacao == 1){echo "<span style='color:#8e9610!important;font-weight: bold;'>Processando Pedido</span>"; }else{echo "<span style='color:green!important;font-weight: bold;'>Abrir</span>";} ?>
+			
+		</a>
 	</li>
+	
 
 
 <?php }?>
