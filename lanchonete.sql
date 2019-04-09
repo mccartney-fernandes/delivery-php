@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 26-Set-2015 às 18:46
--- Versão do servidor: 5.6.17
--- PHP Version: 5.5.12
+-- Generation Time: 09-Abr-2019 às 19:34
+-- Versão do servidor: 10.1.38-MariaDB
+-- versão do PHP: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `lanchonete`
@@ -23,14 +25,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `bairro`
+--
+
+CREATE TABLE `bairro` (
+  `id_bairro` int(11) NOT NULL,
+  `id_cidade` int(11) NOT NULL,
+  `bairro` varchar(255) NOT NULL,
+  `preco` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `categoria`
 --
 
-CREATE TABLE IF NOT EXISTS `categoria` (
-  `id_categoria` int(10) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(200) NOT NULL,
-  PRIMARY KEY (`id_categoria`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+CREATE TABLE `categoria` (
+  `id_categoria` int(10) NOT NULL,
+  `nome` varchar(200) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `categoria`
@@ -50,10 +64,28 @@ INSERT INTO `categoria` (`id_categoria`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `cidade`
+--
+
+CREATE TABLE `cidade` (
+  `id_cidade` int(11) NOT NULL,
+  `cidade` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `cidade`
+--
+
+INSERT INTO `cidade` (`id_cidade`, `cidade`) VALUES
+(1, 'PETROLINA');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `config`
 --
 
-CREATE TABLE IF NOT EXISTS `config` (
+CREATE TABLE `config` (
   `id_conf` int(30) NOT NULL,
   `empresa` varchar(200) NOT NULL,
   `telefone` varchar(30) NOT NULL,
@@ -74,12 +106,11 @@ INSERT INTO `config` (`id_conf`, `empresa`, `telefone`, `pgarcon`, `ativo`) VALU
 -- Estrutura da tabela `cozinha`
 --
 
-CREATE TABLE IF NOT EXISTS `cozinha` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cozinha` (
+  `id` int(10) NOT NULL,
   `produto` varchar(200) NOT NULL,
-  `qtd` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `qtd` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `cozinha`
@@ -94,8 +125,8 @@ INSERT INTO `cozinha` (`id`, `produto`, `qtd`) VALUES
 -- Estrutura da tabela `entrega`
 --
 
-CREATE TABLE IF NOT EXISTS `entrega` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `entrega` (
+  `id` int(11) NOT NULL,
   `cod` int(11) NOT NULL,
   `nome` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `preco` varchar(10) NOT NULL,
@@ -109,9 +140,8 @@ CREATE TABLE IF NOT EXISTS `entrega` (
   `status` int(1) NOT NULL,
   `destino` int(1) NOT NULL,
   `entregue` int(1) NOT NULL,
-  `feito` int(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=470 ;
+  `feito` int(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -119,14 +149,13 @@ CREATE TABLE IF NOT EXISTS `entrega` (
 -- Estrutura da tabela `garcon`
 --
 
-CREATE TABLE IF NOT EXISTS `garcon` (
-  `idGarcon` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `garcon` (
+  `idGarcon` int(10) NOT NULL,
   `nomeGarcon` varchar(200) NOT NULL,
   `login` varchar(20) NOT NULL,
   `senha` varchar(20) NOT NULL,
-  `nv` int(1) NOT NULL,
-  PRIMARY KEY (`idGarcon`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  `nv` int(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `garcon`
@@ -144,13 +173,12 @@ INSERT INTO `garcon` (`idGarcon`, `nomeGarcon`, `login`, `senha`, `nv`) VALUES
 -- Estrutura da tabela `mesa`
 --
 
-CREATE TABLE IF NOT EXISTS `mesa` (
-  `id_mesa` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mesa` (
+  `id_mesa` int(10) NOT NULL,
   `numero` int(10) NOT NULL,
   `idGarcon` varchar(200) NOT NULL,
-  `situacao` int(1) NOT NULL,
-  PRIMARY KEY (`id_mesa`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+  `situacao` int(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `mesa`
@@ -183,8 +211,8 @@ INSERT INTO `mesa` (`id_mesa`, `numero`, `idGarcon`, `situacao`) VALUES
 -- Estrutura da tabela `pedido`
 --
 
-CREATE TABLE IF NOT EXISTS `pedido` (
-  `id_mesa` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pedido` (
+  `id_mesa` int(10) NOT NULL,
   `numero` int(10) NOT NULL,
   `idGarcon` varchar(200) NOT NULL,
   `situacao` int(1) NOT NULL,
@@ -196,15 +224,15 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `rua` varchar(50) DEFAULT NULL,
   `numerocasa` varchar(20) DEFAULT NULL,
   `detalhes` longtext,
-  PRIMARY KEY (`id_mesa`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+  `preco` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `pedido`
 --
 
-INSERT INTO `pedido` (`id_mesa`, `numero`, `idGarcon`, `situacao`, `email`, `nome`, `sobrenome`, `telefone`, `bairro`, `rua`, `numerocasa`, `detalhes`) VALUES
-(46, 12, '9', 0, 'teste@gmail.com', 'Carla Costa', 'Barcelos', '(31) 34542345', 'Giovanini', 'Av. Purus ', '540', NULL);
+INSERT INTO `pedido` (`id_mesa`, `numero`, `idGarcon`, `situacao`, `email`, `nome`, `sobrenome`, `telefone`, `bairro`, `rua`, `numerocasa`, `detalhes`, `preco`) VALUES
+(46, 12, '', 0, 'teste@gmail.com', 'CARLA COSTA', '', '(87) 99546-5798', 'GIOVANINI', 'AV. PURUS ', '540', 'SANTA MARIA DA BOA VISTA', '5,00');
 
 -- --------------------------------------------------------
 
@@ -212,8 +240,8 @@ INSERT INTO `pedido` (`id_mesa`, `numero`, `idGarcon`, `situacao`, `email`, `nom
 -- Estrutura da tabela `tbl_carrinho`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_carrinho` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_carrinho` (
+  `id` int(11) NOT NULL,
   `cod` int(11) NOT NULL,
   `nome` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `preco` varchar(10) NOT NULL,
@@ -227,9 +255,8 @@ CREATE TABLE IF NOT EXISTS `tbl_carrinho` (
   `status` int(1) NOT NULL,
   `destino` int(1) NOT NULL,
   `entregue` int(1) NOT NULL,
-  `feito` int(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=173 ;
+  `feito` int(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tbl_carrinho`
@@ -249,7 +276,13 @@ INSERT INTO `tbl_carrinho` (`id`, `cod`, `nome`, `preco`, `qtd`, `comanda`, `dat
 (169, 26, 'SKOL', '6.50', 1, 0, '2015-09-25', '22:13:00', 4, 0, '10', 1, 1, 1, 0),
 (170, 51, 'água c/ Gás', '2.00', 1, 0, '2015-09-26', '04:18:00', 11, 0, '10', 0, 0, 0, 0),
 (171, 50, 'Pinto', '10.00', 1, 0, '2015-09-26', '04:18:00', 11, 0, '10', 0, 1, 0, 1),
-(172, 53, 'X-Bacon', '10.00', 1, 0, '2015-09-25', '23:41:00', 11, 0, '10', 0, 1, 0, 1);
+(172, 53, 'X-Bacon', '10.00', 1, 0, '2015-09-25', '23:41:00', 11, 0, '10', 0, 1, 0, 1),
+(173, 51, 'água c/ Gás', '2.00', 1, 0, '2019-04-09', '11:12:00', 1, 0, '8', 0, 0, 0, 0),
+(174, 51, 'água c/ Gás', '2.00', 1, 0, '2019-04-09', '11:12:00', 1, 0, '8', 0, 0, 0, 0),
+(175, 51, 'água c/ Gás', '2.00', 1, 0, '2019-04-09', '11:12:00', 1, 0, '8', 0, 0, 0, 0),
+(176, 0, 'Taxa Entrega', '5,00', 1, 0, '2019-04-09', '11:13:00', 46, 0, '', 0, 0, 0, 0),
+(180, 28, 'ANTARTICA', '5.50', 1, 0, '2019-04-09', '11:13:00', 46, 0, '', 0, 0, 0, 0),
+(179, 28, 'ANTARTICA', '5.50', 1, 0, '2019-04-09', '11:13:00', 46, 0, '', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -257,15 +290,14 @@ INSERT INTO `tbl_carrinho` (`id`, `cod`, `nome`, `preco`, `qtd`, `comanda`, `dat
 -- Estrutura da tabela `tbl_produtos`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_produtos` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_produtos` (
+  `cod` int(11) NOT NULL,
   `nome` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `img` varchar(36) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `preco` varchar(10) NOT NULL,
   `id_categoria` int(30) NOT NULL,
-  `destino` int(1) NOT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+  `destino` int(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tbl_produtos`
@@ -323,14 +355,13 @@ INSERT INTO `tbl_produtos` (`cod`, `nome`, `img`, `preco`, `id_categoria`, `dest
 -- Estrutura da tabela `usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `idUser` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuario` (
+  `idUser` int(10) NOT NULL,
   `nome` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `login` varchar(100) NOT NULL,
-  `senha` varchar(20) NOT NULL,
-  PRIMARY KEY (`idUser`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `senha` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -338,6 +369,147 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`idUser`, `nome`, `email`, `login`, `senha`) VALUES
 (1, 'Seu Nome', '', 'aidecb', '8520');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `bairro`
+--
+ALTER TABLE `bairro`
+  ADD PRIMARY KEY (`id_bairro`);
+
+--
+-- Indexes for table `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`id_categoria`);
+
+--
+-- Indexes for table `cidade`
+--
+ALTER TABLE `cidade`
+  ADD PRIMARY KEY (`id_cidade`);
+
+--
+-- Indexes for table `cozinha`
+--
+ALTER TABLE `cozinha`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `entrega`
+--
+ALTER TABLE `entrega`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `garcon`
+--
+ALTER TABLE `garcon`
+  ADD PRIMARY KEY (`idGarcon`);
+
+--
+-- Indexes for table `mesa`
+--
+ALTER TABLE `mesa`
+  ADD PRIMARY KEY (`id_mesa`);
+
+--
+-- Indexes for table `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`id_mesa`);
+
+--
+-- Indexes for table `tbl_carrinho`
+--
+ALTER TABLE `tbl_carrinho`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_produtos`
+--
+ALTER TABLE `tbl_produtos`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`idUser`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bairro`
+--
+ALTER TABLE `bairro`
+  MODIFY `id_bairro` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id_categoria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `cidade`
+--
+ALTER TABLE `cidade`
+  MODIFY `id_cidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `cozinha`
+--
+ALTER TABLE `cozinha`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `entrega`
+--
+ALTER TABLE `entrega`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=470;
+
+--
+-- AUTO_INCREMENT for table `garcon`
+--
+ALTER TABLE `garcon`
+  MODIFY `idGarcon` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `mesa`
+--
+ALTER TABLE `mesa`
+  MODIFY `id_mesa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `id_mesa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `tbl_carrinho`
+--
+ALTER TABLE `tbl_carrinho`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+
+--
+-- AUTO_INCREMENT for table `tbl_produtos`
+--
+ALTER TABLE `tbl_produtos`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `idUser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

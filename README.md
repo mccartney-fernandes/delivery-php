@@ -2,12 +2,12 @@
 
 ## Refectory delivery-php
 
--Refectory do Cadastro de cliente, inclusão do campo taxa e inputs com mascara
--Criação de lista de clientes para edição e exclusão, dataTables
--Criação de edição de cliente com mascara
--Refactory no relatorio geral, criação do relatorio do cliente
--Criação de envio de mensagem pelo whatsapp
--
+#####-Refectory do Cadastro de cliente, inputs com mascara
+#####-Criação de lista de clientes para edição e exclusão, dataTables
+#####-Criação de edição de cliente com mascara
+#####-Refactory no relatorio geral, criação do relatorio do cliente
+#####-Criação de envio de mensagem pelo whatsapp
+#####-Criação do cadastro de cidades e bairros com suas respectivas taxas de entrega
 
 ## Banco de dados 
 #### Alteração
