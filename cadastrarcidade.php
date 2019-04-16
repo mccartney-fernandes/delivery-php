@@ -1,3 +1,137 @@
+<?php
+
+include "config/conexao.php";
+
+
+
+####  verificando de a session existe ou nao #####
+
+
+
+// inicia  a sessiom
+
+session_start();
+
+//se nao existir volta para a pagina do form de login
+
+if(!isset($_SESSION['login_session']) and !isset($_SESSION['senha_session'])){
+
+  header("Location:index.php");
+
+  exit;   
+
+}
+
+//// a parte acima deve estar em todas as paginas onde houver restrições de acesso no site
+
+$login = $_SESSION['login_session'];
+
+$senha = $_SESSION['senha_session'];
+
+// seleciona o nome no campo da tabela
+
+$sql = mysql_query("SELECT * FROM usuario WHERE login='$login' AND senha='$senha'");
+
+$linha = mysql_fetch_array($sql);
+
+  $nome = $linha['nome'];
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+$num = $_GET['numero'];
+
+if($_GET['btn'] =="cancela"){
+
+    $del = mysql_query("DELETE FROM entrega WHERE comanda = '$num' ") or die(mysql_error());
+
+    
+
+    if($del == 1){
+
+  print "<META HTTP-EQUIV=REFRESH CONTENT='0; URL=inicio2.php?btn=nova'>";
+
+
+
+  }
+
+
+
+  }
+
+  
+
+
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>.:  Controle de vendas</title>
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<link href="css/css.css" rel="stylesheet" type="text/css">
+
+<link href="css/jquery-uicss.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/jquery-latest.js"></script>
+
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+
+<script type="text/javascript" src="js/jquery.maskedinput.min.js"></script>
+
+<script>
+
+$(function() {
+
+$( "#datai" ).datepicker({dateFormat: 'dd-mm-yy'});
+
+$( "#dataf" ).datepicker({dateFormat: 'dd-mm-yy'});
+
+
+
+});
+
+</script>
+
+</script>
+
+<strong>
+
+<style media="print">
+
+.naomostra {
+
+display: none;
+
+}
+
+
+
+</style></strong>
+
+</head>  
+
+<body>
+
+<div class="naomostra">
+
+<div id="menu"><center><?php include "menu.php"?></center></div></div>
+
 <?php require_once('Connections/sistema.php'); ?>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <?php
@@ -142,7 +276,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form4")) {
 $(document).ready(function() {
 
         $("#preco").maskMoney({decimal:",",thousands:"."});
-		
+    
 
       });
 
@@ -192,6 +326,42 @@ $(document).ready(function() {
 
     </form>
     </div>
+    <br>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th>Cidade</th>
+          <th scope="col">Bairro</th>
+          <th scope="col">Taxa</th>
+          <th scope="col">Editar | Deletar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+            $i=0;
+            $sql = mysql_query("SELECT * FROM cidade INNER JOIN bairro ON cidade.id_cidade = bairro.id_cidade ORDER BY cidade DESC LIMIT 20");
+            while($ver = mysql_fetch_array($sql)){
+                $id_cidade = $ver['id_cidade'];
+                $cidade = $ver['cidade'];
+                $id_bairro = $ver['id_bairro'];
+                $bairro = $ver['bairro'];
+                $taxa = $ver['preco'];             
+                
+        ?>
+            <tr>
+              <td><?php echo ++$i; ?></td>
+              <td><?php echo $cidade; ?></td>
+              <td><?php echo $bairro; ?></td>
+              <td><?php echo $taxa; ?></td>
+              <td><a href="editarcidadebairro.php?cidade=<?php echo $cidade; ?>&cidadeId=<?php echo $id_cidade; ?>&bairro=<?php echo $bairro; ?>&bairroId=<?php echo $id_bairro; ?>">Edit</a>/| 
+                <a href="cadastrarcidade.php?excluirCidade=<?php echo $id_bairro; ?>">Delete</a>
+              </td>
+            </tr>
+
+        <?php } ?>
+      </tbody>
+    </table>
     
 </div>
 
@@ -223,3 +393,9 @@ $(document).ready(function() {
 </div>
 
 <script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+</html>

@@ -12,7 +12,7 @@
 
             <li><a href="inicio.php?btn=cadastroProdutos">Cadastro de Produto</a></li>
 
-            <li><a href="inicio2.php?btn=cadastrocidade">Cadastro Cidade/Bairro</a></li>
+            <li><a href="cadastrarcidade.php">Cadastro Cidade/Bairro</a></li>
 
             <li><a href="inicio.php?btn=alterapreco">Alterar Precos / Excluir</a></li>
 
@@ -20,7 +20,7 @@
 
             <li><a href="inicio.php?btn=cadastroclientes">Cadastrar Clientes</a></li>
 
-            <li><a href="inicio2.php?btn=createclientes">Editar Clientes</a></li>
+            <li><a href="inicio2.php?btn=createclientes">Alterar Clientes</a></li>
 
             <li><a href="inicio.php?btn=cadGarcon">Cadastro de Usuários</a></li>
 

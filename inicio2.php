@@ -214,6 +214,10 @@ display: none;
 
 			include "createclientes.php";
 
+		}elseif($_GET['btn'] == "createbairro"){
+
+			include "createbairro.php";
+
 		}
 
 		elseif($_GET['btn'] == "cadGarcon"){
