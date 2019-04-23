@@ -33,7 +33,7 @@ if($_GET['retirar'] == "cliente"){
 	</thead>
 	<tbody>
 	<?php 
-		$sql = mysql_query("SELECT * FROM pedido ORDER BY id_mesa DESC LIMIT 20");
+		$sql = mysql_query("SELECT * FROM pedido ORDER BY id_mesa DESC");
 		while($ver = mysql_fetch_array($sql)){
 			$id_mesa = $ver['id_mesa'];
 			$nome = $ver['nome'];

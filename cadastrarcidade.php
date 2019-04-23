@@ -276,6 +276,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form4")) {
 $(document).ready(function() {
 
         $("#preco").maskMoney({decimal:",",thousands:"."});
+        $("#preco2").maskMoney({decimal:",",thousands:"."});
     
 
       });
@@ -340,7 +341,7 @@ $(document).ready(function() {
       <tbody>
         <?php 
             $i=0;
-            $sql = mysql_query("SELECT * FROM cidade INNER JOIN bairro ON cidade.id_cidade = bairro.id_cidade ORDER BY cidade DESC LIMIT 20");
+            $sql = mysql_query("SELECT * FROM cidade INNER JOIN bairro ON cidade.id_cidade = bairro.id_cidade ORDER BY cidade ASC");
             while($ver = mysql_fetch_array($sql)){
                 $id_cidade = $ver['id_cidade'];
                 $cidade = $ver['cidade'];
@@ -354,7 +355,7 @@ $(document).ready(function() {
               <td><?php echo $cidade; ?></td>
               <td><?php echo $bairro; ?></td>
               <td><?php echo $taxa; ?></td>
-              <td><a href="editarcidadebairro.php?cidade=<?php echo $cidade; ?>&cidadeId=<?php echo $id_cidade; ?>&bairro=<?php echo $bairro; ?>&bairroId=<?php echo $id_bairro; ?>">Edit</a>/| 
+              <td><button class="btn btn-outline-secondary" onclick="editarFunc('<?php echo $id_bairro; ?>', '<?php echo $bairro; ?>', '<?php echo $taxa; ?>')">Editar</button>| 
                 <a href="cadastrarcidade.php?excluirCidade=<?php echo $id_bairro; ?>">Delete</a>
               </td>
             </tr>
@@ -392,8 +393,53 @@ $(document).ready(function() {
   </div>
 </div>
 
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<!-- Modal Edit Bairro-->
+<div class="modal fade" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Bairro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?php echo $editFormAction; ?>" method="post" name="form5" id="form5">
+            <input type="hidden" name="idBairro" id="idBairro">
+            <div class="form-group">
+                <label for="bairroforEdit">Bairro</label>
+                <input type="text" name="bairro" class="form-control" id="bairroforEdit">
+            </div>
+            <div class="form-group">
+                <label for="preco2">Taxa</label>
+                <input type="text" name="preco" class="form-control col-3" size="6" id="preco2">
+            </div>
+            
+            <input type="submit" class="btn btn-info" value="Atualizar">
+            <input type="hidden" name="MM_insert" value="form5" />
 
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+  
+ function editarFunc (idBairro, bairro, taxa){
+    var idBai = document.getElementById('idBairro');
+    var bai = document.getElementById('bairroforEdit');
+    var ta = document.getElementById('preco2');
+    idBai.value = idBairro;
+    bai.value = bairro;
+    ta.value = taxa;
+    $('#exampleModalEdit').modal('show');
+ }
+</script>
 
 
 </body>

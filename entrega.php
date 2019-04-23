@@ -64,7 +64,7 @@
 
 <ul>
 	<?php 
-		$sql = mysql_query("SELECT * FROM pedido ORDER BY id_mesa DESC LIMIT 20");
+		$sql = mysql_query("SELECT * FROM pedido ORDER BY id_mesa DESC");
 		while($ver = mysql_fetch_array($sql)){
 			$situacao = $ver['situacao'];
 			$id_mesa = $ver['id_mesa'];
